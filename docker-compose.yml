@@ -1,0 +1,43 @@
+﻿services:
+   app:
+       build:
+           context: "."
+           dockerfile: ./Dockerfile
+       container_name: "MongoWebApp"
+       env_file:
+           - db.env
+       ports:
+           - 80:80
+           - 443:443
+       depends_on:
+           - mongodb
+       networks:
+           - app-network
+
+   mongo-express:
+       image: mongo-express
+       container_name: mongo-express
+       networks:
+           - app-network
+       env_file:
+           - express.env
+       depends_on:
+           - mongodb
+       ports:
+           - "8081:8081"
+
+   mongodb:
+       image: mongo
+       restart: always
+       container_name: "mongodb"
+       env_file:
+           - db.env
+       volumes:
+           - database:/data/db
+       networks:
+           - app-network
+networks:
+   app-network:
+       driver: bridge
+volumes:
+  database:

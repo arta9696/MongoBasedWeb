@@ -1,0 +1,74 @@
+﻿@model MongoBasedWeb.Models.Cats
+
+@{
+    ViewData["Title"] = "Details";
+    
+    var creationTomeToLocal = Model.CreatedDate.ToLocalTime();
+    var updateTimeToLocal = Model.UpdatedDate.ToLocalTime();
+    
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Cats</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CreatedDate)
+        </dt>
+        <dd class = "col-sm-10">
+            UTC - @Html.DisplayFor(model => model.CreatedDate) - Local - @Html.DisplayFor(model => creationTomeToLocal)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.UpdatedDate)
+        </dt>
+        <dd class = "col-sm-10">
+            UTC - @Html.DisplayFor(model => model.UpdatedDate) - Local - @Html.DisplayFor(model => updateTimeToLocal)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.UpdatedDate)
+        </dt>
+        <dd class="col-sm-10">
+            UTC - @Html.DisplayFor(model => model.UpdatedDate) - Local - @Html.DisplayFor(model => updateTimeToLocal)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Attribute)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Attribute.Name) - Cuteness: @Html.DisplayFor(model => model.Attribute.Cuteness)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Friends)
+        </dt>
+        <dd class="col-sm-10">
+            @if (Model.Friends != null)
+            {
+                <ul class="list-group">
+                    @foreach (var friend in Model.Friends)
+                    {
+                        <li class="list-group-item">
+                            @Html.DisplayFor(_=>friend)
+                        </li>
+                    }
+                </ul>
+            }
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
